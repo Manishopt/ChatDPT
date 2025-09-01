@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatDPT</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 text-gray-800 h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 px-6">
+        <div class="max-w-4xl mx-auto flex items-center">
+            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">C</div>
+            <h1 class="text-xl font-semibold">ChatDPT</h1>
+        </div>
+    </header>
+
+    <!-- Chat Container -->
+    <div class="flex-1 overflow-y-auto py-6 px-4" id="chat-container">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <!-- Welcome Message -->
+            <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center">
+                    <i class="fas fa-robot text-gray-500"></i>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm max-w-[85%]">
+                    <p class="text-gray-700">Hello! I'm your AI assistant. How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="bg-white border-t border-gray-200 py-4 px-4">
+        <div class="max-w-3xl mx-auto">
+            <form id="chat-form" class="relative">
+                <div class="relative">
+                    <textarea 
+                        id="input" 
+                        rows="1" 
+                        placeholder="Message ChatDPT..."
+                        class="w-full p-4 pr-16 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        style="min-height: 48px; max-height: 200px;"
+                    ></textarea>
+                    <button 
+                        type="submit" 
+                        id="ask"
+                        class="absolute right-3 bottom-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 transition-colors"
+                        title="Send message"
+                    >
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2 text-center">ChatDPT can make mistakes. Consider checking important information.</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script>
+        // Auto-resize textarea
+        const textarea = document.getElementById('input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script>
+</body>
+
+</html>
