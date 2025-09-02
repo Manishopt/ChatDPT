@@ -4,7 +4,7 @@ import 'dotenv/config';
 import { generate } from './chatbot.js';
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
@@ -27,6 +27,15 @@ app.post('/chat', async (req, res) => {
     res.json({ message: result });
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+// Start the server
+const server = app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+// Handle process termination
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received. Shutting down gracefully');
+    server.close(() => {
+        console.log('Process terminated');
+    });
 });
