@@ -1,6 +1,13 @@
 import Groq from 'groq-sdk';
 import { tavily } from '@tavily/core';
 import NodeCache from 'node-cache';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
+
+// Debug: Log environment variables
+console.log('TAVILY_API_KEY exists:', !!process.env.TAVILY_API_KEY);
+console.log('GROQ_API_KEY exists:', !!process.env.GROQ_API_KEY);
 
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
