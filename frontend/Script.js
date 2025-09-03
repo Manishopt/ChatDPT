@@ -1,3 +1,5 @@
+// Set BACKEND_URL from environment or fallback
+const BACKEND_URL = window.BACKEND_URL || 'https://chatdpt-backend.onrender.com';
 const input = document.querySelector('#input');
 const chatContainer = document.querySelector('#chat-container > div'); // Changed to target the inner container
 const chatForm = document.querySelector('#chat-form');
@@ -71,7 +73,7 @@ async function generate(text) {
     
     try {
         // Call server
-        const response = await fetch('http://localhost:3001/chat', {
+        const response = await fetch(`${BACKEND_URL}/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
