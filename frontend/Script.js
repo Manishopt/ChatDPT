@@ -1,5 +1,5 @@
 // Set BACKEND_URL from environment or fallback
-const BACKEND_URL = window.BACKEND_URL || 'http://localhost:3001';
+const BACKEND_URL = window.BACKEND_URL || 'https://chatdpt-production.up.railway.app';
 const input = document.querySelector('#input');
 const chatContainer = document.querySelector('#chat-container > div'); // Changed to target the inner container
 const chatForm = document.querySelector('#chat-form');
