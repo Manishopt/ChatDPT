@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd frontend && echo 'Building frontend'",
-  "outputDirectory": "frontend",
-  "framework": "static"
-}
