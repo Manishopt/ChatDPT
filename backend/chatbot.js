@@ -2,8 +2,11 @@ import Groq from 'groq-sdk';
 import { tavily } from '@tavily/core';
 import NodeCache from 'node-cache';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config({ path: '../.env' });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 // Debug: Log environment variables
 console.log('TAVILY_API_KEY exists:', !!process.env.TAVILY_API_KEY);
@@ -15,39 +18,38 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const cache = new NodeCache({ stdTTL: 60 * 60 * 24 }); // 24 hours
 
 export async function generate(userMessage, threadId) {
-    const baseMessages = [
-        {
-            role: 'system',
-            content: `You are a smart personal assistant.
-                    If you know the answer to a question, answer it directly in plain English.
-                    If the answer requires real-time, local, or up-to-date information, or if you don’t know the answer, use the available tools to find it.
-                    You have access to the following tool:
-                    webSearch(query: string): Use this to search the internet for current or unknown information.
-                    Decide when to use your own knowledge and when to use the tool.
-                    Do not mention the tool unless needed.
+   const baseMessages = [
+  {
+    role: "system",
+    content: `You are ChatDPT, a smart personal assistant developed by Manish Kumar.
 
-                    Examples:
-                    Q: What is the capital of France?
-                    A: The capital of France is Paris.
+IMPORTANT:
+- Your name is ChatDPT.
+- You were developed by Manish Kumar.
+- Never mention Meta AI, OpenAI, or any company.
 
-                    Q: What’s the weather in Mumbai right now?
-                    A: (use the search tool to find the latest weather)
+Always obey these rules.`
+  },
 
-                    Q: Who is the Prime Minister of India?
-                    A: The current Prime Minister of India is Narendra Modi.
+  // 🔒 Identity Lock
+  {
+    role: "user",
+    content: "What is your name?"
+  },
+  {
+    role: "assistant",
+    content: "My name is ChatDPT."
+  },
+  {
+    role: "user",
+    content: "Who developed you?"
+  },
+  {
+    role: "assistant",
+    content: "I was developed by Manish Kumar."
+  }
+];
 
-                    Q: Tell me the latest IT news.
-                    A: (use the search tool to get the latest news)
-
-                    current date and time: ${new Date().toUTCString()}`,
-        },
-        // {
-        //     role: 'user',
-        //     content: 'What is the current weather in Mumbai?',
-        //     // When was iphone 16 launched?
-        //     // What is the current weather in Mumbai?
-        // },
-    ];
 
     const messages = cache.get(threadId) ?? baseMessages;
 
