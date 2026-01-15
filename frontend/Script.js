@@ -1,5 +1,5 @@
 // Set BACKEND_URL from environment or fallback
-const BACKEND_URL = window.BACKEND_URL || 'https://chatdpt-backend.onrender.com';
+const BACKEND_URL = window.BACKEND_URL || 'http://localhost:3001';
 const input = document.querySelector('#input');
 const chatContainer = document.querySelector('#chat-container > div'); // Changed to target the inner container
 const chatForm = document.querySelector('#chat-form');
