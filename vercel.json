@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Static frontend'",
+  "public": false,
   "outputDirectory": "frontend",
-  "routes": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
